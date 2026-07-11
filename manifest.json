@@ -1,0 +1,15 @@
+{
+  "name": "PKR Game",
+  "short_name": "PKR Game",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080a08",
+  "theme_color": "#0b2517",
+  "icons": [
+    {
+      "src": "/assets/images/favicon.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}
