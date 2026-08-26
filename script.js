@@ -87,4 +87,27 @@
       button.click();
     });
   });
+
+  var pageToc = document.querySelector(".page-toc");
+  if (pageToc) {
+    var tocToggle = pageToc.querySelector(".toc-toggle");
+
+    function syncTocState() {
+      if (tocToggle) {
+        tocToggle.setAttribute("aria-expanded", pageToc.open ? "true" : "false");
+      }
+    }
+
+    pageToc.removeAttribute("open");
+    syncTocState();
+
+    pageToc.addEventListener("toggle", syncTocState);
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && pageToc.open) {
+        pageToc.open = false;
+        if (tocToggle) tocToggle.focus();
+      }
+    });
+  }
 })();

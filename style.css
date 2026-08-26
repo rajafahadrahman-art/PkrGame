@@ -274,17 +274,130 @@ a:hover {
   color: var(--yellow);
 }
 
+#home-hero-title {
+  font-size: clamp(2.05rem, 4.6vw, 2.95rem);
+  color: var(--white);
+}
+
+.hero p,
+.hero .hero-lead {
+  color: var(--white);
+}
+
+.hero p a {
+  color: var(--yellow);
+  font-weight: 700;
+}
+
+.hero p a:hover {
+  color: var(--light-gold);
+}
+
 .hero-lead {
   margin: 0 0 1.5rem;
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.92);
   max-width: 38rem;
+}
+
+h2[id],
+h3[id] {
+  scroll-margin-top: calc(var(--header-height) + 0.85rem);
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  max-width: 100%;
+}
+
+.hero-actions .btn {
+  min-height: 44px;
+  padding: 0.7rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* Homepage table of contents */
+.toc-wrap {
+  padding: 0 0 1.25rem;
+  background: transparent;
+}
+
+.page-toc {
+  background: var(--light-background);
+  border: 1px solid #e2e6df;
+  border-left: 4px solid var(--green);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+.toc-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--text-dark);
+  list-style: none;
+}
+
+.toc-toggle::-webkit-details-marker,
+.toc-toggle::marker {
+  display: none;
+}
+
+.toc-toggle::after {
+  content: "+";
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--golden);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--deep-green);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.page-toc[open] .toc-toggle::after {
+  content: "–";
+}
+
+.toc-list {
+  margin: 0;
+  padding: 0 1rem 0.85rem 2.1rem;
+}
+
+.toc-list li {
+  margin: 0;
+}
+
+.toc-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0.15rem 0;
+  color: var(--deep-green);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.94rem;
+}
+
+.toc-list a:hover,
+.toc-list a:focus-visible {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .hero-media {
@@ -952,6 +1065,12 @@ a:hover {
 
   .hero {
     padding: 2.5rem 0 3rem;
+  }
+
+  .hero p,
+  .hero .hero-lead,
+  #home-hero-title {
+    color: var(--white);
   }
 
   .section {
