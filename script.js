@@ -110,4 +110,147 @@
       }
     });
   }
+
+  var sliderRoot = document.querySelector("[data-screenshot-slider]");
+  if (sliderRoot) {
+    var track = sliderRoot.querySelector(".slider-track");
+    var slides = sliderRoot.querySelectorAll(".slider-slide");
+    var dots = sliderRoot.querySelectorAll(".slider-dot");
+    var prevBtn = sliderRoot.querySelector(".slider-prev");
+    var nextBtn = sliderRoot.querySelector(".slider-next");
+    var viewport = sliderRoot.querySelector(".slider-viewport");
+    var total = slides.length;
+    var index = 0;
+    var timer = null;
+    var resumeTimer = null;
+    var delay = 4500;
+    var pointerStartX = null;
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function goTo(nextIndex) {
+      if (!total) return;
+      index = (nextIndex + total) % total;
+      if (track) {
+        track.style.transform = "translateX(-" + index * 100 + "%)";
+      }
+
+      slides.forEach(function (slide, slideIndex) {
+        slide.classList.toggle("is-active", slideIndex === index);
+        slide.setAttribute("aria-hidden", slideIndex === index ? "false" : "true");
+      });
+
+      dots.forEach(function (dot, dotIndex) {
+        var active = dotIndex === index;
+        dot.classList.toggle("is-active", active);
+        if (active) {
+          dot.setAttribute("aria-current", "true");
+        } else {
+          dot.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    function stopAutoplay() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function startAutoplay() {
+      if (reduceMotion || total < 2) return;
+      stopAutoplay();
+      timer = window.setInterval(function () {
+        goTo(index + 1);
+      }, delay);
+    }
+
+    function pauseForInteraction() {
+      stopAutoplay();
+      if (resumeTimer) {
+        window.clearTimeout(resumeTimer);
+      }
+      resumeTimer = window.setTimeout(startAutoplay, 8000);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function () {
+        pauseForInteraction();
+        goTo(index - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function () {
+        pauseForInteraction();
+        goTo(index + 1);
+      });
+    }
+
+    dots.forEach(function (dot, dotIndex) {
+      dot.addEventListener("click", function () {
+        pauseForInteraction();
+        goTo(dotIndex);
+      });
+    });
+
+    sliderRoot.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        pauseForInteraction();
+        goTo(index - 1);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        pauseForInteraction();
+        goTo(index + 1);
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        pauseForInteraction();
+        goTo(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        pauseForInteraction();
+        goTo(total - 1);
+      }
+    });
+
+    if (viewport) {
+      viewport.addEventListener("pointerdown", function (event) {
+        pointerStartX = event.clientX;
+      });
+
+      viewport.addEventListener("pointerup", function (event) {
+        if (pointerStartX === null) return;
+        var delta = event.clientX - pointerStartX;
+        pointerStartX = null;
+        if (Math.abs(delta) < 40) return;
+        pauseForInteraction();
+        goTo(delta > 0 ? index - 1 : index + 1);
+      });
+
+      viewport.addEventListener("pointercancel", function () {
+        pointerStartX = null;
+      });
+    }
+
+    sliderRoot.addEventListener("mouseenter", stopAutoplay);
+    sliderRoot.addEventListener("mouseleave", startAutoplay);
+    sliderRoot.addEventListener("focusin", stopAutoplay);
+    sliderRoot.addEventListener("focusout", function (event) {
+      if (!sliderRoot.contains(event.relatedTarget)) {
+        startAutoplay();
+      }
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    });
+
+    goTo(0);
+    startAutoplay();
+  }
 })();
