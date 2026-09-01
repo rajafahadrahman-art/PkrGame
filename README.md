@@ -63,7 +63,7 @@ Replace files in `assets/images/` while keeping the same filenames:
 
 Search the project for:
 
-`https://www.okpkr1.com/?id=616425469`
+`https://444y999.com/?dl=9hxmxr`
 
 Replace it with your new destination URL. Keep `target="_blank"` and `rel="nofollow sponsored noopener noreferrer"` on external CTA links.
 
