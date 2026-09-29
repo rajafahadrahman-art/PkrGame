@@ -201,47 +201,47 @@ a:hover {
 
 .btn-primary {
   background: var(--yellow);
-  color: var(--black);
+  color: #ffffff;
   border-color: var(--golden);
   box-shadow: 0 4px 12px rgba(220, 174, 50, 0.35);
 }
 
 .btn-primary:hover {
   background: var(--light-gold);
-  color: var(--black);
+  color: #ffffff;
 }
 
 .btn-secondary {
   background: var(--green);
-  color: var(--black);
+  color: #ffffff;
   border-color: var(--deep-green);
 }
 
 .btn-secondary:hover {
   background: #22d972;
-  color: var(--black);
+  color: #ffffff;
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--white);
+  color: #ffffff;
   border-color: var(--golden);
 }
 
 .btn-outline:hover {
   background: rgba(220, 174, 50, 0.15);
-  color: var(--yellow);
+  color: #ffffff;
 }
 
 .btn-outline-dark {
   background: var(--white);
-  color: var(--text-dark);
+  color: #ffffff;
   border-color: var(--golden);
 }
 
 .btn-outline-dark:hover {
   background: var(--light-gold);
-  color: var(--black);
+  color: #ffffff;
 }
 
 .header-cta {
